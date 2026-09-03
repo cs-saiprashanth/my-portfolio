@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Scan, Lock } from "lucide-react";
+import { getAssetPath } from "../lib/asset";
 
 export interface SecurityRevealProps {
   maskedImgSrc?: string;
@@ -13,8 +14,8 @@ export interface SecurityRevealProps {
 }
 
 export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
-  maskedImgSrc = "/masked.jpg",
-  revealedImgSrc = "/revealed.jpg",
+  maskedImgSrc = getAssetPath("/masked.jpg"),
+  revealedImgSrc = getAssetPath("/revealed.jpg"),
   gridColor = "white",
   revealRadius = 175,
   autoScanSpeed = 1,

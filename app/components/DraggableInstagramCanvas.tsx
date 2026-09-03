@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { Move, Camera, Play, SkipForward, Heart, Music, Sparkles } from "lucide-react";
+import { getAssetPath } from "../lib/asset";
 
 export interface DragCardItem {
   id: number;
@@ -302,7 +303,7 @@ export const DraggableInstagramCanvas: React.FC = () => {
                 <div className={`${card.widthClass || "w-48"} bg-[#121216] border border-zinc-700/80 rounded-2xl p-2.5 shadow-2xl group flex flex-col justify-between`}>
                   <div className={`relative ${card.aspectClass || "aspect-[4/3]"} w-full rounded-xl overflow-hidden bg-black`}>
                     <img
-                      src={card.img}
+                      src={card.img ? getAssetPath(card.img) : ""}
                       alt={card.title || "Instagram Drag Card"}
                       className="w-full h-full object-cover object-center pointer-events-none group-hover:scale-105 transition-transform duration-500"
                     />

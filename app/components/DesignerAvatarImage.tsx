@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { getAssetPath } from "../lib/asset";
 
 export const DesignerAvatarImage: React.FC<{ className?: string }> = ({ className = "w-56 sm:w-64 h-64 sm:h-72" }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,7 +15,7 @@ export const DesignerAvatarImage: React.FC<{ className?: string }> = ({ classNam
       <div className="relative w-full h-full flex items-center justify-center bg-transparent">
         {/* Default Avatar Image (Calm expression from reference image Variation 1 - Transparent) */}
         <img
-          src="/avatar_default.png"
+          src={getAssetPath("/avatar_default.png")}
           alt="Avatar Default"
           className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-300 ${
             isHovered ? "opacity-0" : "opacity-100"
@@ -23,7 +24,7 @@ export const DesignerAvatarImage: React.FC<{ className?: string }> = ({ classNam
 
         {/* Hover Avatar Image (Smiling Face with white teeth from reference image Variation 1 - Transparent) */}
         <img
-          src="/avatar_hover.png"
+          src={getAssetPath("/avatar_hover.png")}
           alt="Avatar Hover Smiling Face"
           className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"

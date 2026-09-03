@@ -9,6 +9,7 @@ import TechMarquee from "./TechMarquee";
 import DraggableInstagramCanvas from "./DraggableInstagramCanvas";
 import FinalContactSection from "./FinalContactSection";
 import { Shield } from "lucide-react";
+import { getAssetPath } from "../lib/asset";
 
 const AUTO_ROLES = [
   "UI/UX Product Designer",
@@ -93,8 +94,8 @@ export const CyberHero: React.FC = () => {
         {/* Security Face Reveal Interactive Canvas Component */}
         <div className="w-full flex justify-center mb-10">
           <SecurityFaceReveal
-            maskedImgSrc="/masked.jpg"
-            revealedImgSrc="/revealed.jpg"
+            maskedImgSrc={getAssetPath("/masked.jpg")}
+            revealedImgSrc={getAssetPath("/revealed.jpg")}
             gridColor="white"
             revealRadius={160}
             autoScanSpeed={1}

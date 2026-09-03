@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ArrowUpRight, Lock, Mail } from "lucide-react";
+import { getAssetPath } from "../lib/asset";
 
 export interface ProjectCard {
   id: number;
@@ -192,7 +193,7 @@ export const ProjectCarousel: React.FC = () => {
                 {/* Project Image Thumbnail (Clean, No Category Tag Overlay) */}
                 <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-black border border-zinc-800/80">
                   <img
-                    src={project.img}
+                    src={getAssetPath(project.img)}
                     alt={project.title}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />

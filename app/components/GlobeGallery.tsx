@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Globe, Sparkles, ArrowUpRight, Monitor, Smartphone, Tablet, X, ZoomIn, Shield } from "lucide-react";
+import { getAssetPath } from "../lib/asset";
 
 export interface GlobeItem {
   id: number;
@@ -319,7 +320,7 @@ export const GlobeGallery: React.FC = () => {
                     {/* Mockup Screen Image */}
                     <div className="relative aspect-[16/10] overflow-hidden bg-black">
                       <img
-                        src={item.img}
+                        src={getAssetPath(item.img)}
                         alt={item.title}
                         className={`w-full h-full object-cover object-center transition-transform duration-500 ${isHovered ? "scale-110 brightness-110" : "scale-100 filter brightness-95"
                           }`}
@@ -383,7 +384,7 @@ export const GlobeGallery: React.FC = () => {
             {/* Modal Image Display */}
             <div className="md:w-3/5 relative bg-black aspect-[16/10] md:aspect-auto">
               <img
-                src={selectedItem.img}
+                src={getAssetPath(selectedItem.img)}
                 alt={selectedItem.title}
                 className="w-full h-full object-cover object-center"
               />
