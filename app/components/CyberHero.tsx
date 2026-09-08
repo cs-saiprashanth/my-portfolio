@@ -1,14 +1,23 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import SecurityFaceReveal from "./SecurityFaceReveal";
-import InteractiveMeshBackground from "./InteractiveMeshBackground";
-import GlobeGallery from "./GlobeGallery";
+import SmokeEffect from "./SmokeEffect";
 import ProjectCarousel from "./ProjectCarousel";
 import TechMarquee from "./TechMarquee";
 import DraggableInstagramCanvas from "./DraggableInstagramCanvas";
 import FinalContactSection from "./FinalContactSection";
-import { Shield } from "lucide-react";
+import SkillsSection from "./SkillsSection";
+import {
+  BriefcaseBusiness,
+  Code2,
+  FileText,
+  Home,
+  Link2,
+  Mail,
+  UserRound,
+} from "lucide-react";
 import { getAssetPath } from "../lib/asset";
 
 const AUTO_ROLES = [
@@ -39,42 +48,71 @@ export const CyberHero: React.FC = () => {
   const currentRoleDisplay = AUTO_ROLES[roleIndex];
 
   return (
-    <div className="relative min-h-screen bg-[#050508] text-white overflow-hidden flex flex-col justify-between selection:bg-blue-600 selection:text-white">
-      {/* Interactive Cyber Mesh Background (Dynamic Mouse Warp Movement & Floating Skill Badges) */}
-      <InteractiveMeshBackground />
-
+    <div className="relative min-h-screen bg-transparent text-white overflow-hidden flex flex-col justify-between selection:bg-blue-600 selection:text-white">
       {/* Ambient Radial Glows */}
-      <div className="absolute inset-0 bg-cyber-grid pointer-events-none opacity-40" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Header Navigation */}
-      <header className="relative z-10 w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3 font-mono text-sm tracking-wider font-semibold">
-          <div className="p-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400">
-            <Shield className="w-4 h-4" />
-          </div>
-          <span className="text-zinc-100 font-bold">PORTFOLIO</span>
-          <span className="text-zinc-600">/</span>
-          <span className="text-blue-400 text-xs bg-blue-950/60 px-2 py-0.5 rounded border border-blue-500/30">
-            CYBER_FX
+      {/* Glass Header Navigation */}
+      <header className="fixed inset-x-0 top-0 z-50 w-full max-w-6xl mx-auto px-4 sm:px-6 py-5 bg-[#050508]/10 backdrop-blur-md">
+        <div className="flex items-center gap-3">
+          <a
+            href="#hero-section"
+            aria-label="Go to home"
+            title="Home"
+            className="group relative flex h-12 w-20 items-center justify-center overflow-hidden rounded-xl border border-white/20 bg-white/[0.08] transition duration-300 hover:scale-105 hover:border-blue-300/70 hover:bg-blue-500/15 hover:shadow-[0_0_24px_rgba(96,165,250,0.45)]"
+          >
+            <Image
+              src={getAssetPath("/public/sai-logo.png")}
+              alt="SaiPrashanth logo"
+              width={80}
+              height={48}
+              className="h-10 w-auto object-contain opacity-90 transition duration-300 group-hover:scale-110 group-hover:opacity-100 group-hover:brightness-125"
+            />
+          </a>
+          <span className="font-signature text-3xl font-bold leading-none tracking-wide text-zinc-100 sm:text-4xl">
+            SaiPrashanth
           </span>
+          {/* <span className="text-zinc-600">/</span> */}
+          {/* <span className="text-blue-400 text-xs bg-blue-950/60 px-2 py-0.5 rounded border border-blue-500/30">
+            CYBER_FX
+          </span> */}
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-mono text-zinc-400">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Interactive Security Mode</span>
-          </div>
-        </div>
+        <nav
+          aria-label="Primary navigation"
+          className="mt-5 flex items-center justify-center gap-1 rounded-2xl border border-white/15 bg-white/[0.08] px-2 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.24)] backdrop-blur-xl sm:absolute sm:right-6 sm:top-5 sm:mt-0 sm:w-auto"
+        >
+          {[
+            { label: "Home", href: "#hero-section", icon: Home },
+            { label: "About", href: "#about-banner-section", icon: UserRound },
+            { label: "Projects", href: "#project-carousel-section", icon: BriefcaseBusiness },
+            { label: "Resume", href: "#contact-section", icon: FileText },
+            { label: "Contact", href: "#contact-section", icon: Mail },
+            { label: "LinkedIn", href: "https://linkedin.com/in/saiprashanth-chavan", icon: Link2, external: true },
+            { label: "Behance", href: "https://behance.net", icon: null, external: true },
+            { label: "GitHub", href: "https://github.com/cs-saiprashanth", icon: Code2, external: true },
+          ].map(({ label, href, icon: Icon, external }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
+              aria-label={label}
+              title={label}
+              className="group flex h-9 w-9 items-center justify-center rounded-xl text-zinc-400 transition-colors hover:bg-white/15 hover:text-white"
+            >
+              {Icon ? <Icon size={20} aria-hidden="true" /> : <span className="text-sm font-bold leading-none">Bē</span>}
+            </a>
+          ))}
+        </nav>
       </header>
 
       {/* Main Hero Section */}
-      <main id="hero-section" className="relative z-10 flex-1 flex flex-col items-center justify-center max-w-5xl mx-auto w-full px-6 py-12">
+      <main id="hero-section" className="hero relative z-10 flex-1 flex flex-col items-center justify-center w-full px-6 pt-32 pb-0">
+
         {/* Top Titles */}
-        <div className="text-center mb-8 space-y-2 max-w-4xl animate-in fade-in duration-700">
-          <p className="text-lg sm:text-xl font-mono text-blue-400/90 font-semibold tracking-widest uppercase">
-            Hi, I'm
+        <div className="hero-content relative z-10 text-center mb-8 space-y-2 max-w-4xl animate-in fade-in duration-700">
+            <p className="text-lg sm:text-xl font-mono text-blue-400/90 font-semibold tracking-widest uppercase">
+            Hi, I&apos;m
           </p>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-50 font-sans whitespace-nowrap">
             {name}
@@ -92,22 +130,23 @@ export const CyberHero: React.FC = () => {
         </div>
 
         {/* Security Face Reveal Interactive Canvas Component */}
-        <div className="w-full flex justify-center mb-10">
+        <div className="hero-image relative z-10 w-full flex justify-center mb-0">
           <SecurityFaceReveal
-            maskedImgSrc={getAssetPath("/masked.jpg")}
-            revealedImgSrc={getAssetPath("/revealed.jpg")}
+            maskedImgSrc={getAssetPath("/masked.png.png")}
+            revealedImgSrc={getAssetPath("/revealed.png")}
             gridColor="white"
-            revealRadius={160}
+            revealRadius={120}
             autoScanSpeed={1}
           />
         </div>
+
+        <SmokeEffect />
       </main>
+
+      <SkillsSection />
 
       {/* Infinite Continuous UI/UX Technical Names Marquee Bar (Below 1st Section) */}
       <TechMarquee />
-
-      {/* Next Section: Interactive 3D Auto-Rotating Portfolio Globe Gallery */}
-      <GlobeGallery />
 
       {/* 3rd Section: Horizontal Infinite Scrolling Project Carousel */}
       <ProjectCarousel />

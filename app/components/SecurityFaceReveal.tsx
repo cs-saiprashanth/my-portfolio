@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Scan, Lock } from "lucide-react";
+import { Scan } from "lucide-react";
 import { getAssetPath } from "../lib/asset";
 
 export interface SecurityRevealProps {
@@ -10,16 +10,14 @@ export interface SecurityRevealProps {
   gridColor?: "white" | "cyan" | "red" | "emerald";
   revealRadius?: number;
   autoScanSpeed?: number;
-  showHudText?: boolean;
 }
 
 export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
-  maskedImgSrc = getAssetPath("/masked.jpg"),
-  revealedImgSrc = getAssetPath("/revealed.jpg"),
+  maskedImgSrc = getAssetPath("/masked.png.png"),
+  revealedImgSrc = getAssetPath("/revealed.png"),
   gridColor = "white",
   revealRadius = 175,
   autoScanSpeed = 1,
-  showHudText = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -31,8 +29,6 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
     px: 0,
     py: 0,
   });
-
-  const [scanLineY, setScanLineY] = useState(0);
 
   // Canvas drawing loop for Cyber Laser Scan Beam
   const drawSecurityMesh = useCallback(
@@ -46,8 +42,6 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
 
       if (autoScanSpeed > 0) {
         const laserY = (Math.sin(time * 0.0015 * autoScanSpeed) * 0.5 + 0.5) * height;
-        setScanLineY(laserY);
-
         // Laser beam gradient
         const grad = ctx.createLinearGradient(0, laserY - 14, 0, laserY + 14);
         grad.addColorStop(0, "transparent");
@@ -113,24 +107,22 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
     : `circle(0px at 50% 50%)`;
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full select-none">
+    <div className="relative flex h-full w-full flex-col items-center justify-center select-none">
       {/* Outer Glow Container */}
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative overflow-hidden rounded-3xl border border-white/15 bg-black shadow-2xl transition-shadow duration-500 hover:shadow-blue-900/50 group cursor-crosshair max-w-[620px] w-full aspect-[4/4.4]"
+        className="relative h-full w-full overflow-hidden rounded-none border-0 bg-transparent shadow-none transition-shadow duration-500 group cursor-crosshair"
       >
         {/* Layer 1: Masked 1st Image (Base View: Beanie & Mask Portrait) */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src={maskedImgSrc}
             alt="1st Security Masked Image"
-            className="w-full h-full object-cover object-[center_top] filter brightness-95 contrast-105"
+            className="w-full h-full object-contain object-center filter brightness-95 contrast-105 mix-blend-lighten"
           />
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/25" />
         </div>
 
         {/* Layer 2: Laser Scan Beam */}
@@ -141,7 +133,7 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
 
         {/* Layer 3: 2nd Revealed Real Face Photo (Spotlight Lens Clip-Path under Cursor) */}
         <div
-          className="absolute inset-0 w-full h-full pointer-events-none transition-none"
+          className="absolute inset-0 w-full h-full pointer-events-none bg-[#050508]/95 transition-[clip-path] duration-200 ease-out"
           style={{
             WebkitClipPath: clipPathStyle,
             clipPath: clipPathStyle,
@@ -150,7 +142,7 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
           <img
             src={revealedImgSrc}
             alt="2nd Revealed Face Image"
-            className="w-full h-full object-cover object-[center_top] scale-100"
+            className="w-full h-full object-contain object-center scale-100 mix-blend-lighten transition-transform duration-200 ease-out"
           />
           {/* Glowing Ring Accent around Cursor Lens Spotlight */}
           <div
@@ -165,24 +157,8 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
           />
         </div>
 
-        {/* Layer 4: Floating Security HUD UI elements */}
-        <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-5 z-20">
-          {/* Top HUD bar */}
-          <div className="flex items-center justify-between font-mono text-[11px] text-zinc-400">
-            <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded border border-white/15">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              <span className="text-zinc-200 font-semibold tracking-wider">
-                {isHovered ? "REVEALING 2ND IMAGE" : "SECURITY MASK ACTIVE"}
-              </span>
-            </div>
-            {showHudText && (
-              <div className="hidden sm:flex items-center gap-2 text-zinc-400 bg-black/50 px-2 py-1 rounded border border-white/10">
-                <Lock className="w-3 h-3 text-blue-400" />
-                <span>ID: #892-SEC</span>
-              </div>
-            )}
-          </div>
-
+        {/* Layer 4: Minimal hover instruction */}
+        <div className="absolute inset-0 pointer-events-none z-20">
           {/* Center Badge: "Hover to reveal" */}
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 transition-all duration-300">
             <div
@@ -201,24 +177,8 @@ export const SecurityFaceReveal: React.FC<SecurityRevealProps> = ({
             </div>
           </div>
 
-          {/* Bottom HUD Bar */}
-          <div className="flex items-end justify-between font-mono text-[10px] text-zinc-500">
-            <div>
-              <div className="text-zinc-300 font-bold">CYBER MASK SEC-V2</div>
-              <div>X: {mousePos.x.toFixed(0)}% Y: {mousePos.y.toFixed(0)}%</div>
-            </div>
-            <div className="text-right">
-              <div className="text-blue-400 font-semibold font-mono">GRID: WHITE</div>
-              <div>AUTO SCAN: ON</div>
-            </div>
-          </div>
         </div>
 
-        {/* Frame Corner Accents */}
-        <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-blue-500/80 pointer-events-none" />
-        <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-blue-500/80 pointer-events-none" />
-        <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-blue-500/80 pointer-events-none" />
-        <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-blue-500/80 pointer-events-none" />
       </div>
     </div>
   );

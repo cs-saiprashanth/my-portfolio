@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, ArrowUpRight, Lock, Mail } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { getAssetPath } from "../lib/asset";
 
 export interface ProjectCard {
@@ -20,7 +20,7 @@ const CAROUSEL_PROJECTS: ProjectCard[] = [
     category: "Multimodal AI",
     description:
       "Designing a multimodal AI that lets users point their camera at the world and talk to it. We turned live visuals into an empathetic system that reasons about context, giving users a magical experience despite privacy and latency hurdles.",
-    img: "/mockup_multi.jpg",
+    img: "/masked.png.png",
     linkText: "View details",
   },
   {
@@ -29,7 +29,7 @@ const CAROUSEL_PROJECTS: ProjectCard[] = [
     category: "Discovery Engine",
     description:
       "Redesigned the Edge Add-ons Store into a dynamic discovery engine. I built a modular card framework that adapts to intent. This solved trust barriers and shifted metrics from downloads to meaningful ecosystem engagement for millions now.",
-    img: "/mockup_desktop.jpg",
+    img: "/revealed.png",
     linkText: "View details",
   },
   {
@@ -38,7 +38,7 @@ const CAROUSEL_PROJECTS: ProjectCard[] = [
     category: "EdTech Marketplace",
     description:
       "Architected a two-sided marketplace to democratize education in India. We built a goal-centric ecosystem connecting students and mentors via outcomes. I designed for accessibility plus solved trust issues to bridge curiosity and mastery!",
-    img: "/project3.jpg",
+    img: "/masked.png.png",
     linkText: "View details",
   },
   {
@@ -47,7 +47,7 @@ const CAROUSEL_PROJECTS: ProjectCard[] = [
     category: "Fintech & Crypto",
     description:
       "Designed a biometric-first crypto wallet for seamless token swaps, gasless transactions, and cross-chain portfolio tracking with zero friction.",
-    img: "/project2.jpg",
+    img: "/revealed.png",
     linkText: "View details",
   },
   {
@@ -56,7 +56,7 @@ const CAROUSEL_PROJECTS: ProjectCard[] = [
     category: "AI Data Visualization",
     description:
       "Built an interactive neural network telemetry system for deep learning engineers to visualize transformer layer activations and real-time accuracy bottlenecks.",
-    img: "/project4.jpg",
+    img: "/masked.png.png",
     linkText: "View details",
   },
   {
@@ -65,8 +65,67 @@ const CAROUSEL_PROJECTS: ProjectCard[] = [
     category: "Identity & Security",
     description:
       "Crafted a high-assurance identity security suite for enterprise SOC teams with real-time threat detection and facial biometric verification.",
-    img: "/masked.jpg",
+    img: "/revealed.png",
     linkText: "View details",
+  },
+];
+
+const FEATURED_COMPANIES = [
+  {
+    name: "Bellebe",
+    subtitle: "JEWELRY",
+    className: "bg-[#9b3f73] text-[#ffe8f2]",
+    texture:
+      "radial-gradient(circle at 50% 42%, rgba(255,255,255,.14) 0 2px, transparent 3px), linear-gradient(135deg, #a7487e, #71305d)",
+    mark: "◇",
+  },
+  {
+    name: "Wildline",
+    subtitle: "OUTDOOR GOODS",
+    className: "bg-[#536edc] text-white",
+    texture:
+      "linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(135deg, #526fdd, #263d9b)",
+    mark: "Wild\nline",
+  },
+  {
+    name: "Thyme",
+    subtitle: "TIMEKEEPING",
+    className: "bg-[#27231f] text-[#e7c990]",
+    texture:
+      "radial-gradient(circle at 30% 20%, rgba(255,255,255,.1), transparent 30%), linear-gradient(140deg, #39332b, #151310)",
+    mark: "◉",
+  },
+  {
+    name: "Yummy",
+    subtitle: "FOOD DELIVERY",
+    className: "bg-[#ff9f0b] text-[#48158d]",
+    texture:
+      "linear-gradient(135deg, rgba(255,255,255,.18), transparent 42%), #ff9f0b",
+    mark: "Yummy\n●",
+  },
+  {
+    name: "Quish",
+    subtitle: "WELLNESS",
+    className: "bg-[#e30d13] text-[#fff3e8]",
+    texture:
+      "radial-gradient(circle at 50% 35%, rgba(255,255,255,.12), transparent 35%), #e30d13",
+    mark: "Q",
+  },
+  {
+    name: "Nox",
+    subtitle: "NIGHTLIFE",
+    className: "bg-[#229443] text-[#fff6dd]",
+    texture:
+      "linear-gradient(135deg, rgba(255,255,255,.16), transparent 40%), #229443",
+    mark: "Nox",
+  },
+  {
+    name: "Lilly",
+    subtitle: "LIFESTYLE",
+    className: "bg-[#f29ab5] text-[#34162a]",
+    texture:
+      "repeating-linear-gradient(135deg, rgba(255,255,255,.13) 0 2px, transparent 2px 11px), #f29ab5",
+    mark: "Lilly",
   },
 ];
 
@@ -168,6 +227,36 @@ export const ProjectCarousel: React.FC = () => {
       {/* Main Carousel Area */}
       <div className="relative max-w-7xl mx-auto">
 
+        {/* Overlapping brand wall inspired by editorial identity boards */}
+        <div className="relative mx-auto mb-16 max-w-6xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#090909] px-4 py-8 sm:px-8 sm:py-12">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,.06),transparent_62%)]" />
+          <div className="relative grid grid-cols-2 gap-3 sm:grid-cols-4 lg:flex lg:h-[320px] lg:items-center lg:justify-center lg:gap-0">
+            {FEATURED_COMPANIES.map((company, index) => (
+              <div
+                key={company.name}
+                className={`group relative flex aspect-[.78] min-h-[170px] items-center justify-center overflow-hidden rounded-[1.35rem] border border-black/30 px-4 text-center shadow-[0_18px_35px_rgba(0,0,0,.35)] transition duration-500 hover:z-30 hover:-translate-y-3 hover:rotate-0 hover:shadow-[0_26px_45px_rgba(0,0,0,.55)] sm:min-h-[230px] lg:-ml-8 lg:w-[170px] lg:first:ml-0 lg:nth-[2]:translate-y-5 lg:nth-[3]:-translate-y-2 lg:nth-[4]:translate-y-7 lg:nth-[5]:-translate-y-4 lg:nth-[6]:translate-y-4 lg:nth-[7]:-translate-y-1 ${company.className}`}
+                style={{
+                  backgroundImage: company.texture,
+                  zIndex: index + 1,
+                }}
+              >
+                <div className="absolute inset-0 bg-black/[0.04] transition group-hover:bg-transparent" />
+                <div className="relative flex flex-col items-center gap-2">
+                  <span className={`whitespace-pre-line text-4xl font-black leading-[.8] tracking-[-.08em] sm:text-5xl ${index === 2 ? "font-serif" : "font-sans"}`}>
+                    {company.mark}
+                  </span>
+                  <span className="text-xl font-black tracking-tight sm:text-2xl">
+                    {company.name}
+                  </span>
+                  <span className="text-[0.6rem] font-bold uppercase tracking-[0.28em] opacity-85 sm:text-[0.7rem]">
+                    {company.subtitle}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Scrollable & Draggable Cards Container (Infinite Loop) */}
         <div
           ref={scrollRef}
@@ -220,7 +309,7 @@ export const ProjectCarousel: React.FC = () => {
                   <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
 
-                <Lock className="w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-400" />
+                {/* <Lock className="w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-400" /> */}
               </div>
             </div>
           ))}

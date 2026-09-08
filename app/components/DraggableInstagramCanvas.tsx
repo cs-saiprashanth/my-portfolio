@@ -310,8 +310,8 @@ export const DraggableInstagramCanvas: React.FC = () => {
                   </div>
                   {card.title && (
                     <div className="pt-2 px-1 flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                      <span className="truncate">{card.title}</span>
-                      <Move className="w-3 h-3 text-zinc-600 group-hover:text-cyan-400 flex-shrink-0 ml-1" />
+                      {/* <span className="truncate">{card.title}</span>
+                      <Move className="w-3 h-3 text-zinc-600 group-hover:text-cyan-400 flex-shrink-0 ml-1" /> */}
                     </div>
                   )}
                 </div>
