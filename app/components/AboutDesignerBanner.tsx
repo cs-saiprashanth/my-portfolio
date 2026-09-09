@@ -51,7 +51,7 @@ export const AboutDesignerBanner: React.FC = () => {
           <div className="relative w-44 sm:w-52 aspect-square rounded-full border-2 border-zinc-700/80 p-1.5 bg-zinc-900 shadow-2xl overflow-hidden group">
             <div className="w-full h-full rounded-full overflow-hidden bg-zinc-950 relative">
               <img
-                src={getAssetPath("/revealed.jpg")}
+                src={getAssetPath("/revealed.png")}
                 alt="SaiPrashanth Chavan - Product Designer"
                 className="w-full h-full object-cover object-top filter contrast-105"
               />

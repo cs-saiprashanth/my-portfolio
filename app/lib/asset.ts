@@ -11,5 +11,6 @@ export const getAssetPath = (path: string): string => {
     return path;
   }
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  return `${basePath}${cleanPath}`;
+  const assetPath = cleanPath.startsWith("/images/") ? cleanPath : `/images${cleanPath}`;
+  return `${basePath}${assetPath}`;
 };

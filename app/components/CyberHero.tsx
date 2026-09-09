@@ -61,7 +61,7 @@ export const CyberHero: React.FC = () => {
             className="group relative flex h-12 w-20 items-center justify-center overflow-hidden rounded-xl border border-white/20 bg-white/[0.08] transition duration-300 hover:scale-105 hover:border-blue-300/70 hover:bg-blue-500/15 hover:shadow-[0_0_24px_rgba(96,165,250,0.45)]"
           >
             <Image
-              src={getAssetPath("/public/sai-logo.png")}
+              src={getAssetPath("/sai-logo.png")}
               alt="SaiPrashanth logo"
               width={80}
               height={48}

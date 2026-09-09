@@ -23,7 +23,7 @@ const INITIAL_CARDS: DragCardItem[] = [
   {
     id: 1,
     type: "photo",
-    img: "/masked.jpg",
+    img: "/masked.png.png",
     title: "Cyber Security Mask",
     x: 80,
     y: 50,
@@ -51,7 +51,7 @@ const INITIAL_CARDS: DragCardItem[] = [
   {
     id: 3,
     type: "photo",
-    img: "/revealed.jpg",
+    img: "/revealed.png",
     title: "Studio Portrait",
     x: 950,
     y: 40,

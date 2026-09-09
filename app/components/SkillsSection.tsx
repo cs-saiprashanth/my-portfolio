@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { getAssetPath } from "../lib/asset";
 
 const VISUAL_WORK = [
   { title: "TokenSGuru Dashboard", label: "AI analytics platform", image: "/publictokensguru-dashboard.png.png" },
@@ -69,7 +70,7 @@ export const SkillsSection: React.FC = () => {
             >
               <div className="relative min-h-0 flex-1 overflow-hidden bg-[#111820]">
                 <img
-                  src={work.image}
+                  src={getAssetPath(work.image)}
                   alt={work.title}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
