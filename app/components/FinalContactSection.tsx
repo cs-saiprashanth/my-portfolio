@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Globe, Phone, Mail, Copy, Check, ExternalLink, Send } from "lucide-react";
 import DesignerAvatarImage from "./DesignerAvatarImage";
+import { getAssetPath } from "../lib/asset";
 
 export const FinalContactSection: React.FC = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -39,15 +40,15 @@ export const FinalContactSection: React.FC = () => {
         {/* LEFT COLUMN: Left Aligned Content + Inline Contact Options (Matching User Request) */}
         <div className="md:col-span-8 text-left space-y-6 flex flex-col items-start justify-center">
           {/* Top Status Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-zinc-200 font-sans text-xs font-medium tracking-wide shadow-xl backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-sans text-xs font-semibold tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.25)] backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.9)]" />
             <span>Available For Work</span>
           </div>
 
           {/* Main Headline (Formatted in 3 Clean Lines) */}
           <h2 className="text-xl sm:text-3xl md:text-4xl font-sans font-medium text-white tracking-tight leading-snug sm:leading-tight">
             I’m currently available for new opportunities and <br className="hidden sm:block" />
-            collaborations—open to building impactful, <br className="hidden sm:block" />
+            collaborations open to building impactful, <br className="hidden sm:block" />
             meaningful digital experiences.
           </h2>
 
@@ -169,12 +170,19 @@ export const FinalContactSection: React.FC = () => {
             </a>
             <span className="text-zinc-700 text-xl font-light">|</span>
             <a
-              href="https://dribbble.com"
+              href="https://linkedin.com/in/saiprashanth-chavan"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-all flex items-center justify-center transform hover:scale-110"
+              className="transition-all flex items-center justify-center transform hover:scale-110"
+              title="Sai Prashanth — LinkedIn Profile"
             >
-              <Globe className="w-7 h-7 sm:w-8 sm:h-8 text-zinc-300 hover:text-white transition-colors" />
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden border border-white/20 hover:border-cyan-400 transition-colors bg-black shadow-md">
+                <img
+                  src={getAssetPath("/images/sp_logo.png")}
+                  alt="Sai Prashanth SP Monogram Logo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </a>
           </div>
         </div>

@@ -13,19 +13,19 @@ export const DesignerAvatarImage: React.FC<{ className?: string }> = ({ classNam
       className={`relative inline-block cursor-pointer bg-transparent ${className}`}
     >
       <div className="relative w-full h-full flex items-center justify-center bg-transparent">
-        {/* Default Avatar Image (Calm expression from reference image Variation 1 - Transparent) */}
+        {/* Default Avatar Image (static.png cutout) */}
         <img
-          src={getAssetPath("/avatar_default.png")}
-          alt="Avatar Default"
+          src={`${getAssetPath("/images/static.png")}?v=3`}
+          alt="Sai Prashanth Avatar Static"
           className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-300 ${
             isHovered ? "opacity-0" : "opacity-100"
           }`}
         />
 
-        {/* Hover Avatar Image (Smiling Face with white teeth from reference image Variation 1 - Transparent) */}
+        {/* Hover Avatar Image (on_hover.png cutout) */}
         <img
-          src={getAssetPath("/avatar_hover.png")}
-          alt="Avatar Hover Smiling Face"
+          src={`${getAssetPath("/images/on_hover.png")}?v=3`}
+          alt="Sai Prashanth Avatar Hover"
           className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-opacity duration-300 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}

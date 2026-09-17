@@ -16,7 +16,7 @@ export interface ProjectCard {
 const CAROUSEL_PROJECTS: ProjectCard[] = [
   {
     id: 1,
-    title: "Lumi AI Camera",
+    title: "Tokens guru",
     category: "Multimodal AI",
     description:
       "Designing a multimodal AI that lets users point their camera at the world and talk to it. We turned live visuals into an empathetic system that reasons about context, giving users a magical experience despite privacy and latency hurdles.",
@@ -147,7 +147,7 @@ export const ProjectCarousel: React.FC = () => {
     const autoScroll = () => {
       if (!isHovered && !isDragging) {
         scrollContainer.scrollLeft += 1.2; // Smooth right to left scroll speed
-        
+
         // Reset scroll position seamlessly when reaching midpoint for infinite loop effect
         const halfWidth = scrollContainer.scrollWidth / 2;
         if (scrollContainer.scrollLeft >= halfWidth) {
@@ -200,27 +200,14 @@ export const ProjectCarousel: React.FC = () => {
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-900/10 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Header Section (Matching Reference Image) */}
+      {/* Header Section */}
       <div className="max-w-4xl mx-auto text-center mb-12 space-y-3">
-        <h2 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-sans">
-          Projects you need to see
+        <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight font-sans">
+          Featured Product Showcases
         </h2>
-        
-        <p className="text-zinc-300 text-sm sm:text-base font-sans font-medium">
-          Translating ambiguous, high-stakes problems into scalable solutions.
-        </p>
 
-        {/* NDA Note Paragraph */}
-        <p className="text-zinc-500 text-xs sm:text-sm font-mono max-w-2xl mx-auto leading-relaxed pt-1">
-          For NDA compliance, my deep-dive case studies are password protected. Curious?{" "}
-          <a
-            href="mailto:contact@saiprashanth.com"
-            className="text-cyan-400 font-semibold underline hover:text-cyan-300 transition-colors inline-flex items-center gap-1"
-          >
-            <span>[Drop me a line]</span>
-            <Mail className="w-3 h-3" />
-          </a>{" "}
-          and I'll hand you the keys.
+        <p className="text-zinc-300 text-base sm:text-lg font-sans font-normal max-w-2xl mx-auto leading-relaxed">
+          Translating ambiguous, high-stakes problems into scalable digital solutions.
         </p>
       </div>
 
@@ -268,15 +255,15 @@ export const ProjectCarousel: React.FC = () => {
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
-          className={`flex gap-6 overflow-x-auto scrollbar-none py-4 px-2 no-scrollbar select-none ${
-            isDragging ? "cursor-grabbing" : "cursor-grab"
-          }`}
+          className={`flex gap-6 overflow-x-auto scrollbar-none py-4 px-2 no-scrollbar select-none ${isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {doubleProjects.map((project, idx) => (
             <div
               key={`${project.id}-${idx}`}
-              className="flex-shrink-0 w-[340px] sm:w-[380px] bg-[#121216] border border-zinc-800/90 rounded-2xl p-5 hover:border-zinc-600 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] group flex flex-col justify-between"
+              onClick={() => window.open("https://cloudangles.com", "_blank", "noopener,noreferrer")}
+              className="flex-shrink-0 w-[340px] sm:w-[380px] bg-[#121216] border border-zinc-800/90 rounded-2xl p-5 hover:border-zinc-600 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] group flex flex-col justify-between cursor-pointer"
             >
               <div className="space-y-4">
                 {/* Project Image Thumbnail (Clean, No Category Tag Overlay) */}
@@ -302,14 +289,15 @@ export const ProjectCarousel: React.FC = () => {
               {/* Bottom Link Action (Matching Reference Image) */}
               <div className="pt-5 border-t border-zinc-800/60 mt-4 flex items-center justify-between">
                 <a
-                  href="#contact"
+                  href="https://cloudangles.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="inline-flex items-center gap-1.5 font-sans font-semibold text-xs text-zinc-300 group-hover:text-cyan-300 transition-colors underline underline-offset-4 decoration-zinc-600 group-hover:decoration-cyan-400"
                 >
                   <span>{project.linkText}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
-
-                {/* <Lock className="w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-400" /> */}
               </div>
             </div>
           ))}

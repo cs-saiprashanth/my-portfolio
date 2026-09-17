@@ -3,17 +3,82 @@
 :root {
   --background: #050508;
   --foreground: #f3f4f6;
+  --font-heading: var(--font-mono), 'Geist Mono', monospace;
+  --font-sans: var(--font-sans), 'Mona Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-mono), 'Geist Mono', monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading) !important;
+}
+
+p,
+span,
+div,
+a,
+label,
+li {
+  font-family: var(--font-sans);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 .font-signature {
   font-family: var(--font-signature), "Corinthia", cursive, sans-serif;
+}
+
+/* Vertical Photo Reel Continuous Animations */
+@keyframes reel-scroll-up {
+  0% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes reel-scroll-down {
+  0% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-reel-up {
+  animation: reel-scroll-up 22s linear infinite;
+}
+
+.animate-reel-down {
+  animation: reel-scroll-down 22s linear infinite;
+}
+
+.animate-reel-up:hover,
+.animate-reel-down:hover {
+  animation-play-state: paused;
 }
 
 /* Custom Scanline Effect */
@@ -91,7 +156,7 @@ body {
   transform-origin: center center;
 }
 
-.visual-carousel > article:hover {
+.visual-carousel>article:hover {
   transform: translateY(-8px) scale(1.02);
 }
 
@@ -130,4 +195,3 @@ body {
     height: 68%;
   }
 }
-

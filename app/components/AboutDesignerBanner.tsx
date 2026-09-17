@@ -1,74 +1,220 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { getAssetPath } from "../lib/asset";
 
+interface CardItem {
+  id: number;
+  tag: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  radialGradient: string;
+  btnBg: string;
+  btnTextColor: string;
+}
+
+const STACK_CARDS: CardItem[] = [
+  {
+    id: 1,
+    tag: "developer",
+    title: "PRODUCT DESIGN & CODE",
+    subtitle: "SAI PRASHANTH —",
+    image: getAssetPath("/images/developer_portrait_code.jpg"),
+    radialGradient: "transparent",
+    btnBg: "",
+    btnTextColor: "",
+  },
+  {
+    id: 2,
+    tag: "marathon",
+    title: "CLOUDANGLES 5K RUN",
+    subtitle: "TEAM MARATHON —",
+    image: getAssetPath("/images/cloudangles_team_marathon.jpg"),
+    radialGradient: "transparent",
+    btnBg: "",
+    btnTextColor: "",
+  },
+  {
+    id: 3,
+    tag: "christmas",
+    title: "3.9 YRS AT CLOUDANGLES",
+    subtitle: "CHRISTMAS CELEBRATION —",
+    image: getAssetPath("/images/cloudangles_team_christmas.jpg"),
+    radialGradient: "transparent",
+    btnBg: "",
+    btnTextColor: "",
+  },
+  {
+    id: 4,
+    tag: "diwali",
+    title: "CLOUDANGLES OFFICE EVENT",
+    subtitle: "FESTIVE CELEBRATION —",
+    image: getAssetPath("/images/cloudangles_team_diwali.jpg"),
+    radialGradient: "transparent",
+    btnBg: "",
+    btnTextColor: "",
+  },
+  {
+    id: 5,
+    tag: "teamwork",
+    title: "STAKEHOLDERS & DEVS",
+    subtitle: "CROSS-TEAM SYNERGY —",
+    image: getAssetPath("/images/cloudangles_team_festive.jpg"),
+    radialGradient: "transparent",
+    btnBg: "",
+    btnTextColor: "",
+  },
+];
+
 export const AboutDesignerBanner: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0); // Start with Developer Portrait & Cloudangles photos
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  // Live IST (India Standard Time) real-time clock updating every second
+  // Auto rotate deck every 3 seconds if playing
   useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone: "Asia/Kolkata",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      };
-      setCurrentTime(now.toLocaleTimeString("en-US", options));
-    };
-
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % STACK_CARDS.length);
+    }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isPlaying]);
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + STACK_CARDS.length) % STACK_CARDS.length);
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % STACK_CARDS.length);
+  };
 
   return (
     <section
       id="about-banner-section"
-      className="relative z-10 w-full max-w-6xl mx-auto px-6 py-12 sm:py-16 select-none"
+      className="relative z-20 w-full bg-[#050508] py-16 sm:py-24 select-none border-t border-zinc-900/80 overflow-hidden"
     >
-      {/* Dark Minimalist Box Container (Matching Reference Image) */}
-      <div className="relative w-full rounded-3xl bg-[#0c0d12] border border-zinc-800/90 p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-md overflow-hidden">
+      {/* Background Radial Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-indigo-900/15 rounded-full blur-[160px] pointer-events-none" />
 
-        {/* Ambient Subtle Volumetric Lighting */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-10">
 
-        {/* LEFT COLUMN: 3-Line Headline Copy (Matching Reference Image) */}
-        <div className="md:w-3/5 space-y-2 text-left z-10">
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-sans font-medium text-white/95 tracking-tight leading-snug sm:leading-tight">
-            I'm a product designer building design <br className="hidden sm:block" />
-            teams and digital products that move <br className="hidden sm:block" />
-            revenue, not just pixels.
-          </h2>
-        </div>
-
-        {/* RIGHT COLUMN: Stylized Character Portrait Avatar & Live Location Time */}
-        <div className="md:w-2/5 flex flex-col items-center justify-center space-y-4 z-10">
-          {/* Avatar Image Container */}
-          <div className="relative w-44 sm:w-52 aspect-square rounded-full border-2 border-zinc-700/80 p-1.5 bg-zinc-900 shadow-2xl overflow-hidden group">
-            <div className="w-full h-full rounded-full overflow-hidden bg-zinc-950 relative">
-              <img
-                src={getAssetPath("/revealed.png")}
-                alt="SaiPrashanth Chavan - Product Designer"
-                className="w-full h-full object-cover object-top filter contrast-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          {/* LEFT COLUMN: About Me Narrative */}
+          <div className="w-full lg:w-6/12 xl:w-7/12 text-left space-y-6">
+            {/* About Me H2 Heading */}
+            <div className="flex items-center gap-3 pb-1">
+              <h2 className="text-3xl sm:text-5xl font-bold tracking-tight font-sans text-white">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-indigo-400">
+                  About Me
+                </span>
+              </h2>
+              <div className="h-2.5 w-2.5 rounded-full bg-indigo-400 shadow-[0_0_14px_#6366f1] animate-pulse" />
             </div>
-            {/* Live Indicator Aura */}
-            <div className="absolute bottom-3 right-3 w-4 h-4 rounded-full bg-emerald-400 border-2 border-black animate-pulse" />
+
+            {/* Body Copy Paragraphs */}
+            <div className="space-y-4 text-zinc-300 text-sm sm:text-base md:text-lg leading-relaxed font-sans max-w-2xl">
+              <p>
+                Over the past <strong className="text-white font-semibold">3.9 years at Cloudangles</strong>, I’ve had the opportunity to work on multiple digital products across different domains and business requirements.
+              </p>
+
+              <p>
+                My role goes beyond creating visually appealing interfaces. I focus on understanding the problem, users, business goals, and technical constraints before translating them into practical product experiences.
+              </p>
+
+              <p>
+                I’ve worked closely with product managers, developers, QA teams, and stakeholders throughout the product lifecycle — helping transform ideas and requirements into intuitive, scalable, and production-ready experiences.
+              </p>
+
+              <p>
+                My approach combines <strong className="text-white font-medium">UX thinking + visual design + product thinking + emerging AI technologies</strong> to create experiences that are useful, accessible, and engaging.
+              </p>
+            </div>
           </div>
 
-          {/* Live Location & Real-Time IST Clock (Matching Reference Image: BLR, IND • IST 06:17 PM) */}
-          <div className="font-mono text-xs text-zinc-400 tracking-wider flex items-center gap-2 uppercase">
-            <span>BLR, IND</span>
-            <span className="text-zinc-600">•</span>
-            <span className="text-zinc-200 font-semibold">
-              IST {currentTime || "06:17 PM"}
-            </span>
+          {/* RIGHT COLUMN: 3D Fanned Photo Card Carousel Deck */}
+          <div className="w-full lg:w-6/12 xl:w-6/12 flex flex-col items-center justify-center relative min-h-[410px] sm:min-h-[460px]">
+
+            {/* Fanned Cards Canvas Stack Area */}
+            <div className="relative w-full h-[310px] sm:h-[360px] flex items-center justify-center">
+              {STACK_CARDS.map((card, index) => {
+                let diff = index - activeIndex;
+                const total = STACK_CARDS.length;
+                if (diff > Math.floor(total / 2)) diff -= total;
+                if (diff < -Math.floor(total / 2)) diff += total;
+
+                const isActive = diff === 0;
+                const absDiff = Math.abs(diff);
+
+                // Fan transform angles matching reference screenshot
+                const rotateDeg = diff * 15;
+                const translateX = diff * 66;
+                const translateY = absDiff * 12;
+                const scale = 1 - absDiff * 0.08;
+                const zIndex = 30 - absDiff * 5;
+                const opacity = isActive ? 1 : Math.max(0.35, 1 - absDiff * 0.25);
+
+                return (
+                  <div
+                    key={card.id}
+                    onClick={() => setActiveIndex(index)}
+                    style={{
+                      transform: `perspective(1000px) translateX(${translateX}px) translateY(${translateY}px) rotate(${rotateDeg}deg) scale(${scale})`,
+                      zIndex,
+                      opacity,
+                    }}
+                    className={`absolute w-[275px] sm:w-[335px] h-[250px] sm:h-[300px] rounded-3xl border border-white/20 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7)] cursor-pointer transition-all duration-500 ease-out select-none bg-[#12121a] group`}
+                  >
+                    {/* Clean Natural Photo */}
+                    <Image
+                      src={card.image}
+                      alt="Portfolio Photo"
+                      fill
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Bottom Navigation Control Bar (Counter + Prev / Next Arrow Buttons) */}
+            <div className="relative z-30 mt-6 flex items-center justify-center gap-3">
+              {/* Counter Pill */}
+              <div className="px-3.5 py-1 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-white font-mono text-xs font-semibold">
+                {activeIndex + 1}/{STACK_CARDS.length}
+              </div>
+
+              {/* Prev Button */}
+              <button
+                onClick={handlePrev}
+                aria-label="Previous photo"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all duration-200 active:scale-95 shadow-md hover:scale-105"
+              >
+                <ChevronLeft size={16} />
+              </button>
+
+              {/* Play / Pause Toggle Button */}
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all duration-200 active:scale-95 shadow-md hover:scale-105"
+              >
+                {isPlaying ? <Pause size={14} /> : <Play size={14} className="ml-0.5" />}
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                aria-label="Next photo"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 backdrop-blur-md flex items-center justify-center text-white transition-all duration-200 active:scale-95 shadow-md hover:scale-105"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+
           </div>
+
         </div>
       </div>
     </section>
